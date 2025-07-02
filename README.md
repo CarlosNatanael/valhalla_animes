@@ -118,7 +118,7 @@ Ou:
 python app.py
 ```
 
-Acesse em: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+Acesse em: [Valhalla Animes](https://vn75t0lq-5051.brs.devtunnels.ms/)
 
 ---
 
