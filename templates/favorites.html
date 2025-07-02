@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Meus Favoritos{% endblock %}
+{% block content %}
+    <h2 class="page-title">Meus Animes Favoritos</h2>
+    {% if animes %}
+        <div class="anime-grid">
+            {% for anime in animes %}
+                <div class="anime-card">
+                    <a href="{{ anime.url }}" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ anime.images.jpg.large_image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
+                    </a>
+                    <div class="anime-info">
+                        <h2>{{ anime.title }}</h2>
+                        <a href="{{ url_for('remove_favorite', favorite_id=anime.favorite_id) }}" class="btn-remove-favorite">❌ Remover</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Você ainda não marcou nenhum anime como favorito.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>Entrar</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="">
+        <div class="form-group">
+            <label for="username">Nome de Usuário</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn">Entrar</button>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Não tem uma conta? <a class="ml-2" href="{{ url_for('register') }}">Registre-se aqui</a>
+        </small>
+    </div>
+</div>
+{% endblock %}

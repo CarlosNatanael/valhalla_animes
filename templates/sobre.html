@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Sobre Nós
+{% endblock %}
+
+{% block content %}
+    <div class="about-page">
+        <h2>Sobre este Projeto</h2>
+        <p>Este site foi criado como um projeto de demonstração usando Python, o micro-framework Flask e a Jikan API.</p>
+        <p>O objetivo é exibir os próximos lançamentos de animes de forma clara e organizada, praticando conceitos de desenvolvimento web como consumo de APIs, renderização de templates e herança de templates.</p>
+    </div>
+
+    <style>
+        .about-page {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #16213e;
+            padding: 30px;
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+    </style>
+{% endblock %}

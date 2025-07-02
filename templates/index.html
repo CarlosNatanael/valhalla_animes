@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Próximos Lançamentos de Animes
+{% endblock %}
+
+{% block content %}
+    <div class="anime-grid">
+        {% for anime in animes %}
+            <div class="anime-card">
+                <a href="{{ anime.url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ anime.image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
+                </a>
+                <div class="anime-info">
+                    <h2>{{ anime.title }}</h2>
+                    <p class="release-date"><strong>Lançamento:</strong> {{ anime.release_date }}</p>
+                    <p class="synopsis">{{ anime.synopsis }}</p>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('add_favorite', anime_id=anime.id) }}" class="btn-favorite">⭐ Favoritar</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p>Nenhum anime encontrado ou erro ao carregar os dados.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

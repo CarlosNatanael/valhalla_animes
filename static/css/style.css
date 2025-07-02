@@ -1,0 +1,270 @@
+/* --- Configurações Globais e Variáveis --- */
+:root {
+    --primary-glow: rgba(255, 193, 7, 0.5); /* Amarelo/Dourado para brilho */
+    --card-bg: rgba(22, 33, 62, 0.6); /* Fundo do card semi-transparente */
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Nova fonte! */
+    background-color: #0f0f1b; /* Um fundo ainda mais escuro */
+    color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden; /* Previne scroll horizontal causado pelas animações */
+}
+
+/* --- Fundo Dinâmico (Aurora UI) --- */
+.aurora-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Coloca o fundo atrás de todo o conteúdo */
+}
+
+.aurora-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px); /* O desfoque que cria o efeito suave */
+    opacity: 0.6;
+}
+
+.shape1 {
+    width: 400px;
+    height: 400px;
+    background-color: #5a189a; /* Roxo */
+    top: -50px;
+    left: -100px;
+    animation: move1 20s infinite alternate;
+}
+
+.shape2 {
+    width: 350px;
+    height: 350px;
+    background-color: #0077b6; /* Azul */
+    bottom: -80px;
+    right: -120px;
+    animation: move2 25s infinite alternate;
+}
+
+@keyframes move1 {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(200px, 100px) rotate(360deg); }
+}
+
+@keyframes move2 {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(-150px, -100px) rotate(180deg); }
+}
+
+
+/* --- Conteúdo Principal (Header, Main, Footer) --- */
+header, main, footer {
+    position: relative; /* Garante que o conteúdo fique sobre o fundo */
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #c0c0c0;
+    font-weight: 300;
+}
+
+/* --- Grade de Animes e Cards (Glassmorphism) --- */
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.anime-card {
+    /* O EFEITO DE VIDRO! */
+    background: var(--card-bg);
+    backdrop-filter: blur(10px); /* Desfoca o que está atrás do card */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    
+    border-radius: 15px; /* Bordas mais arredondadas */
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.anime-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 0 25px 0 var(--primary-glow); /* Efeito de brilho ao passar o mouse */
+    border-color: var(--primary-glow);
+}
+
+.anime-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.anime-info {
+    padding: 20px;
+}
+
+.anime-info h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #f0f0f0;
+    min-height: 58px; /* Ajuda a alinhar os cards */
+}
+
+.release-date {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #ffc107;
+    margin-bottom: 15px;
+}
+
+.synopsis {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #c0c0c0;
+    font-weight: 300;
+}
+
+/* --- Rodapé --- */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    color: #aaa;
+}
+
+footer a {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.social-icons a {
+    color: #9ca3af; /* Mesma cor do texto base */
+    font-size: 1.4rem; /* Ícones maiores */
+    margin: 0 0.6rem; /* Espaçamento entre os ícones */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffffff; /* Branco ao passar o mouse */
+    transform: translateY(-3px); /* Efeito de flutuar ao passar o mouse */
+}
+
+.developer-credit {
+    display: flex;
+    flex-direction: column; /* Em telas pequenas, o texto fica sobre os ícones */
+    align-items: center;
+    gap: 0.75rem; /* Espaço entre o texto e os ícones */
+    color: #d1d5db; /* Cor um pouco mais clara para o nome */
+    font-weight: 600;
+}
+
+/* --- Media Queries para Responsividade (Já incluídas) --- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+    body {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aurora-shape {
+        filter: blur(80px); /* Desfoque menor para performance em mobile */
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    .anime-grid {
+        gap: 20px;
+    }
+    .anime-info h2 {
+        min-height: auto; /* Remove a altura mínima em mobile */
+    }
+}
+
+/* Para telas menores que 768px (tablets em modo retrato e celulares maiores) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px; /* Reduz o espaçamento geral nas laterais */
+    }
+
+    header h1 {
+        font-size: 2.2rem; /* Reduz um pouco o título principal */
+    }
+}
+
+/* Para telas menores que 480px (a maioria dos celulares) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Ainda menos espaçamento */
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* Título bem menor para não quebrar linha */
+    }
+
+    header p {
+        font-size: 0.9rem; /* Subtítulo menor */
+    }
+
+    .anime-grid {
+        gap: 15px; /* Reduz o espaço entre os cards */
+    }
+
+    .anime-card img {
+        height: 380px; /* Ajusta a altura da imagem para telas verticais */
+    }
+
+    .anime-info h2 {
+        font-size: 1.1rem; /* Título do card um pouco menor */
+    }
+}
+
+/* style.css - Adicionar */
+.main-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); }
+.nav-brand { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
+.nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-weight: 600; }
+.header-content { text-align: center; padding: 50px 0; }
+
+.btn-remove-favorite { display: inline-block; margin-top: 10px; padding: 8px 15px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px; }
+.btn-favorite { display: inline-block; margin-top: 10px; padding: 8px 15px; background-color: rgba(255,255,255,0.1); color: #ffc107; text-decoration: none; border-radius: 5px; transition: background-color 0.3s; }
+.btn-favorite:hover { background-color: #ffc107; color: #111; }
+
+/* static/css/style.css - Adicionar no final */
+.form-container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 15px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+.form-control { width: 100%; padding: 10px; background-color: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 5px; color: #fff; font-size: 1rem; }
+.btn { display: block; width: 100%; padding: 12px; border: none; background-color: #ffc107; color: #111; font-weight: 700; border-radius: 5px; cursor: pointer; text-align: center; text-decoration: none; }
+.alert { padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+.alert-success { background-color: #28a745; color: white; }
+.alert-danger { background-color: #dc3545; color: white; }
+.alert-info { background-color: #17a2b8; color: white; }
