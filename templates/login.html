@@ -21,10 +21,9 @@
         </div>
         <button type="submit" class="btn">Entrar</button>
     </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Não tem uma conta? <a class="ml-2" href="{{ url_for('register') }}">Registre-se aqui</a>
-        </small>
+    <div class="form-footer">
+        <span>Não tem uma conta? <a href="{{ url_for('register') }}">Registre-se</a></span>
+        <a href="{{ url_for('reset_request') }}">Esqueceu a senha?</a>
     </div>
 </div>
 {% endblock %}

@@ -45,6 +45,7 @@
                         <a href="{{ url_for('login') }}">Entrar</a>
                         <a href="{{ url_for('register') }}">Registrar</a>
                     {% endif %}
+                    <a href="{{ url_for('semana') }}">Agenda da Semana</a>
                     <a href="{{ url_for('sobre') }}">Sobre</a>
                 </div>
             </nav>
@@ -70,7 +71,7 @@
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/carlos-natanael-608628243/" target="_blank" rel="noopener noreferrer" title="linkedin">
-                            <i style="font-size:24px" class="fa">&#xf0e1;</i>
+                            <i class="fa-brands fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
@@ -81,7 +82,6 @@
             const hamburgerBtn = document.getElementById('hamburger-btn');
 
             hamburgerBtn.addEventListener('click', () => {
-                // Adiciona ou remove a classe 'nav-active' ao clicar
                 mainNav.classList.toggle('nav-active');
             });
         </script>

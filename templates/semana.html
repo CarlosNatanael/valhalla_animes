@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Agenda da Semana{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1>Lançamentos da Semana</h1>
+        <p>Acompanhe a grade de horários dos animes que estão em exibição.</p>
+    </div>
+
+    <div class="schedule-grid">
+        {% for dia, animes_do_dia in animes_por_dia.items() %}
+            {% if animes_do_dia %} {# Só mostra o dia se tiver animes #}
+            <div class="day-column">
+                <h2 class="day-header">{{ dia }}</h2>
+                <div class="animes-list">
+                    {% for anime in animes_do_dia %}
+                    <a href="{{ url_for('anime_detail', anime_id=anime.mal_id) }}" class="schedule-anime-card">
+                        <img src="{{ anime.images.jpg.image_url }}" alt="{{ anime.title }}" loading="lazy">
+                        <div class="schedule-info">
+                            <h3>{{ anime.title }}</h3>
+                            {% if anime.broadcast.time %}
+                            <p><span>Horário:</span> {{ anime.broadcast.time }} (JST)</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

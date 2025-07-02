@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Solicitar Redefinição de Senha{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>Redefinir Senha</h2>
+    <p class="form-text">Digite o e-mail associado à sua conta e enviaremos um link para redefinir sua senha.</p>
+    <form method="POST" action="">
+        <div class="form-group">
+            <label for="email">Seu Endereço de E-mail</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn">Enviar Link de Redefinição</button>
+    </form>
+</div>
+{% endblock %}

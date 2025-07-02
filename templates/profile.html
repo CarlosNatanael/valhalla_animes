@@ -5,7 +5,12 @@
 {% block content %}
 <div class="profile-container">
     <div class="profile-header">
+        <img src="{{ user.avatar(150) }}" alt="Avatar de {{ user.username }}" class="profile-avatar">
+        <a href="https://gravatar.com/" target="_blank" class="change-avatar-link" title="O avatar é gerenciado pelo Gravatar">
+            Alterar foto
+        </a>
         <h1>{{ user.username }}</h1>
+        <p class="member-since">Membro desde {{ user.data_criacao.strftime('%d de %B de %Y') }}</p>
     </div>
 
     <div class="profile-stats">
@@ -13,16 +18,23 @@
             <span class="stat-number">{{ user.favorites|length }}</span>
             <span class="stat-label">Animes Favoritos</span>
         </div>
-        </div>
+    </div>
 
     <div class="profile-favorites-list">
-        <h2>Lista de Favoritos:</h2>
-        {% if user.favorites %}
-            <ul>
-                {% for fav in user.favorites %}
-                    <li>{{ fav.anime_title }}</li>
+        <h2>Favoritos de {{ user.username }}:</h2>
+        {% if favorite_animes %}
+            <div class="anime-grid">
+                {% for anime in favorite_animes %}
+                    <div class="anime-card">
+                        <a href="{{ url_for('anime_detail', anime_id=anime.mal_id) }}">
+                            <img src="{{ anime.images.jpg.large_image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
+                        </a>
+                        <div class="anime-info">
+                            <h2>{{ anime.title }}</h2>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
             <p>{{ user.username }} ainda não favoritou nenhum anime.</p>
         {% endif %}

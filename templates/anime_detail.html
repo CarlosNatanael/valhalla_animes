@@ -45,6 +45,73 @@
                 </iframe>
             </div>
         {% endif %}
+        {% if episodes %}
+            <div class="episodes-section">
+                <h2>Lista de Episódios</h2>
+                <div class="episodes-list">
+                    {% for episode in episodes %}
+                    <details class="episode-item" data-episode-url="{{ episode.url }}" data-loaded="false">
+                        <summary class="episode-summary">
+                            <span class="episode-number">EP {{ episode.mal_id }}</span>
+                            <span class="episode-title">{{ episode.title }}</span>
+                            {% if episode.score %}
+                            <span class="episode-score">
+                                ⭐ {{ "%.2f"|format(episode.score) }}
+                            </span>
+                            {% endif %}
+                            <span class="episode-arrow">▼</span>
+                        </summary>
+                        <div class="episode-details">
+                            <p class="synopsis-content">Carregando sinopse...</p>
+                        </div>
+                    </details>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elif anime.type == 'Movie' %}
+            <div class="episodes-section">
+                <h2>Episódios</h2>
+                <p class="info-text">Este é um filme e não possui uma lista de episódios.</p>
+            </div>
+        {% elif anime.status == 'Not yet aired' %}
+            <div class="episodes-section">
+                <h2>Lista de Episódios</h2>
+                <p class="info-text">A lista de episódios estará disponível assim que o anime estrear.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
+
+
+<script>
+    // Adiciona um 'escutador' de eventos para cada item de episódio
+    document.querySelectorAll('.episode-item').forEach(item => {
+        item.addEventListener('toggle', event => {
+            // Verifica se o painel está sendo aberto e se os dados ainda não foram carregados
+            if (event.target.open && event.target.dataset.loaded === 'false') {
+                
+                // Marca como 'carregado' para não buscar de novo
+                event.target.dataset.loaded = 'true';
+
+                const episodeUrl = event.target.dataset.episodeUrl;
+                const synopsisP = event.target.querySelector('.synopsis-content');
+
+                // Chama a nossa rota de scraping no backend
+                fetch(`/get_episode_synopsis?url=${encodeURIComponent(episodeUrl)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.synopsis) {
+                            synopsisP.textContent = data.synopsis;
+                        } else {
+                            synopsisP.textContent = 'Erro ao carregar sinopse.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        synopsisP.textContent = 'Erro ao carregar sinopse.';
+                    });
+            }
+        });
+    });
+</script>
 {% endblock %}

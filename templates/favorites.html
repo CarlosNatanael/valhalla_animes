@@ -6,7 +6,7 @@
         <div class="anime-grid">
             {% for anime in animes %}
                 <div class="anime-card">
-                    <a href="{{ url_for('anime_detail', anime_id=anime.id) }}">
+                    <a href="{{ url_for('anime_detail', anime_id=anime.mal_id) }}">
                         <img src="{{ anime.images.jpg.large_image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
                     </a>
                     <div class="anime-info">
