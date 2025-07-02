@@ -6,6 +6,8 @@
 
  ![image](https://github.com/user-attachments/assets/b76fcf1f-798a-46f6-98bb-5b98e596d605)
 
+ ![Assista ao vídeo de demonstração](https://youtu.be/s-KRPdh_FFM)
+
 
 Valhalla Animes é um site interativo que consome dados da [Jikan API](https://jikan.moe/) (um wrapper não oficial da API do MyAnimeList) para fornecer informações atualizadas sobre animes. Os usuários podem se registrar, fazer login, pesquisar por animes, ver detalhes, trailers, listas de episódios e criar sua própria lista de favoritos.
 
