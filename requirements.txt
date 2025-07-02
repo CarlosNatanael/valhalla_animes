@@ -1,0 +1,10 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Flask-Caching
+Flask-Bcrypt
+itsdangerous
+email-validator
+beautifulsoup4
+requests
+python-dotenv
