@@ -1,60 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Valhalla Animes{% endblock %}</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Valhalla Animes{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    </head>
 
-<body>
-    <div class="aurora-bg">
-        <div class="aurora-shape shape1"></div>
-        <div class="aurora-shape shape2"></div>
-    </div>
-    <header>
-        <nav class="main-nav">
-            <a href="{{ url_for('index') }}" class="nav-brand">Valhalla Animes</a>
-            <div class="nav-links">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('favorites') }}">Meus Favoritos</a>
-                    <a href="{{ url_for('logout') }}">Sair</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">Entrar</a>
-                    <a href="{{ url_for('register') }}">Registrar</a>
-                {% endif %}
-                <a href="{{ url_for('sobre') }}">Sobre</a>
-            </div>
-        </nav>
-        <div class="header-content">
-          <h1>Próximos Lançamentos de Animes</h1>
-          <p>Fique por dentro das novidades do mundo dos animes!</p>
+    <body>
+        <div class="aurora-bg">
+            <div class="aurora-shape shape1"></div>
+            <div class="aurora-shape shape2"></div>
         </div>
-    </header>
+        <header>
+            <nav class="main-nav" id="main-nav">
+                <a href="{{ url_for('index') }}" class="nav-brand">Valhalla Animes</a>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
 
-    <footer>
-        <p>&copy; {{ year }} - Meu Site de Animes. Dados fornecidos pela <a href="https://jikan.moe" target="_blank">Jikan API</a>.</p>
-            <div class="developer-credit">
-                <span>Desenvolvido por Carlos Natanael</span>
-                <div class="social-icons">
-                    <a href="https://github.com/CarlosNatanael" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i>
-                    </a>
+                <div class="nav-links" id="nav-links">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('favorites') }}">Meus Favoritos</a>
+                        <a href="{{ url_for('logout') }}">Sair</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Entrar</a>
+                        <a href="{{ url_for('register') }}">Registrar</a>
+                    {% endif %}
+                    <a href="{{ url_for('sobre') }}">Sobre</a>
                 </div>
+            </nav>
+            <div class="header-content">
+              <h1>Próximos Lançamentos de Animes</h1>
+              <p>Fique por dentro das novidades do mundo dos animes!</p>
             </div>
-    </footer>
+        </header>
 
-</body>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; {{ year }} - Meu Site de Animes. Dados fornecidos pela <a href="https://jikan.moe" target="_blank">Jikan API</a>.</p>
+                <div class="developer-credit">
+                    <span>Desenvolvido por Carlos Natanael</span>
+                    <div class="social-icons">
+                        <a href="https://github.com/CarlosNatanael" target="_blank" rel="noopener noreferrer" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/carlos-natanael-608628243/" target="_blank" rel="noopener noreferrer" title="linkedin">
+                            <i style="font-size:24px" class="fa">&#xf0e1;</i>
+                        </a>
+                    </div>
+                </div>
+        </footer>
+
+        <script>
+            const mainNav = document.getElementById('main-nav');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+
+            hamburgerBtn.addEventListener('click', () => {
+                // Adiciona ou remove a classe 'nav-active' ao clicar
+                mainNav.classList.toggle('nav-active');
+            });
+        </script>
+
+    </body>
 </html>
