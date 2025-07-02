@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <body>
@@ -25,7 +26,10 @@
         <header>
             <nav class="main-nav" id="main-nav">
                 <a href="{{ url_for('index') }}" class="nav-brand">Valhalla Animes</a>
-
+                <form action="{{ url_for('search') }}" method="GET" class="search-form">
+                    <input type="search" name="q" placeholder="Buscar anime..." required>
+                    <button type="submit">Buscar</button>
+                </form>
                 <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -34,6 +38,7 @@
 
                 <div class="nav-links" id="nav-links">
                     {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('profile', username=current_user.username) }}">Perfil</a>
                         <a href="{{ url_for('favorites') }}">Meus Favoritos</a>
                         <a href="{{ url_for('logout') }}">Sair</a>
                     {% else %}
@@ -43,10 +48,12 @@
                     <a href="{{ url_for('sobre') }}">Sobre</a>
                 </div>
             </nav>
+        {% if request.endpoint == 'index' %}
             <div class="header-content">
-              <h1>Próximos Lançamentos de Animes</h1>
-              <p>Fique por dentro das novidades do mundo dos animes!</p>
+                <h1>Próximos Lançamentos de Animes</h1>
+                <p>Fique por dentro das novidades do mundo dos animes!</p>
             </div>
+        {% endif %}
         </header>
 
         <main>

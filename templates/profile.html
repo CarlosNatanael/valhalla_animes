@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>{{ user.username }}</h1>
+    </div>
+
+    <div class="profile-stats">
+        <div class="stat-item">
+            <span class="stat-number">{{ user.favorites|length }}</span>
+            <span class="stat-label">Animes Favoritos</span>
+        </div>
+        </div>
+
+    <div class="profile-favorites-list">
+        <h2>Lista de Favoritos:</h2>
+        {% if user.favorites %}
+            <ul>
+                {% for fav in user.favorites %}
+                    <li>{{ fav.anime_title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ user.username }} ainda não favoritou nenhum anime.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

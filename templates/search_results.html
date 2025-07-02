@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados para {{ query }}{% endblock %}
+
+{% block content %}
+    <div class="search-header">
+        <h2>Resultados da busca por: <span>"{{ query }}"</span></h2>
+    </div>
+
+    {% if animes %}
+        <div class="anime-grid">
+            {% for anime in animes %}
+                <div class="anime-card">
+                    <a href="{{ url_for('anime_detail', anime_id=anime.id) }}">
+                        <img src="{{ anime.image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
+                    </a>
+                    <div class="anime-info">
+                        <h2>{{ anime.title }}</h2>
+                        <p class="release-date"><strong>Ano:</strong> {{ anime.release_date }}</p>
+                        <p class="synopsis">{{ anime.synopsis }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-results">Nenhum anime encontrado para sua busca.</p>
+    {% endif %}
+{% endblock %}

@@ -193,6 +193,9 @@ footer a:hover {
     body {
         padding: 15px;
     }
+    .search-form {
+        display: none; /* Esconde a barra de busca no menu principal do mobile */
+    }
 }
 
 @media (max-width: 480px) {
@@ -218,6 +221,9 @@ footer a:hover {
 
     header h1 {
         font-size: 2.2rem; /* Reduz um pouco o título principal */
+    }
+    .search-form {
+        display: none; /* Esconde a barra de busca no menu principal do mobile */
     }
 }
 
@@ -288,26 +294,31 @@ footer a:hover {
 /* Media Query para ativar o menu mobile */
 @media (max-width: 768px) {
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100vh;
-        width: 60%;
-        max-width: 250px;
-        background: rgba(22, 33, 62, 0.9);
+        /* Posicionamento */
+        position: absolute;   /* Posicionado em relação ao .main-nav */
+        top: 100%;            /* Começa exatamente abaixo do nav principal */
+        left: 0;
+        width: 100%;
+        height: auto;         /* Altura se ajusta ao conteúdo */
+
+        /* Estilo */
+        background: rgba(22, 33, 62, 0.95); /* Fundo um pouco mais opaco */
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-    
-        /* --- AJUSTE AQUI --- */
+        padding: 20px 0; /* Espaçamento vertical interno */
+
+        /* Layout dos links */
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start; /* <-- ALTERADO de 'center' para 'flex-start' */
-        padding-top: 120px;         /* <-- ADICIONADO para dar um respiro do topo */
-        gap: 30px;
-    
-        transform: translateX(100%);
-        transition: transform 0.4s ease-in-out;
+        gap: 25px; /* Espaço entre os links */
+
+        /* Animação para esconder/mostrar */
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+        transform: translateY(-10px); /* Começa um pouco para cima */
+        opacity: 0;
+        visibility: hidden; /* Começa totalmente escondido e não clicável */
+        z-index: 1000; /* Garante que fique sobre todo o conteúdo */
     }
 
     .nav-links a {
@@ -317,16 +328,402 @@ footer a:hover {
 
     /* Quando a navegação estiver ativa, o menu desliza para a tela */
     .nav-active .nav-links {
-        transform: translateX(0);
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 
     .hamburger-btn {
         display: flex; /* Mostra o botão hambúrguer no mobile */
     }
+    .search-form {
+        display: none; /* Esconde a barra de busca no menu principal do mobile */
+    }
+}
+
+/* ======================================== */
+/* Página de Detalhes do Anime              */
+/* ======================================== */
+
+.anime-detail-container {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Coluna da esquerda fixa, direita flexível */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+}
+
+.left-column img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.info-box {
+    margin-top: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: #a0aec0; /* cinza claro */
+}
+.info-item + .info-item {
+    border-top: 1px solid var(--border-color);
+}
+.info-item strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.right-column h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+.right-column h2 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #e2e8f0; /* branco suave */
+    border-bottom: 2px solid var(--primary-glow, #ffc107);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.genres {
+    margin-bottom: 20px;
+}
+
+.genre-tag {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #cbd5e0;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.synopsis-full {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #c0c0c0;
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+.trailer-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Responsividade para a Página de Detalhes --- */
+@media (max-width: 900px) {
+    .anime-detail-container {
+        grid-template-columns: 1fr; /* Vira uma única coluna */
+    }
+    .left-column {
+        max-width: 300px;
+        margin: 0 auto; /* Centraliza a coluna da imagem */
+    }
+    .right-column h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    .right-column h2 {
+        display: block;
+        text-align: center;
+        border-bottom: none;
+    }
+     .genres {
+        text-align: center;
+    }
+}
+
+/* ======================================== */
+/* Barra de Busca                           */
+/* ======================================== */
+.search-form {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Faz a barra ocupar o espaço disponível */
+    margin: 0 25px;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px 0 0 20px; /* Bordas arredondadas na esquerda */
+    background-color: rgba(0,0,0,0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    outline: none; /* Remove a borda azul ao clicar */
+}
+
+.search-form button {
+    padding: 8px 15px;
+    border: 1px solid var(--border-color);
+    border-left: none; /* Remove a borda dupla */
+    border-radius: 0 20px 20px 0; /* Bordas arredondadas na direita */
+    background-color: #ffc107;
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.search-header h2 {
+    font-weight: 300;
+    color: #c0c0c0;
+}
+.search-header span {
+    font-weight: 600;
+    color: #ffc107;
+}
+.no-results {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 50px;
+}
+
+/* ======================================== */
+/* Paginação                              */
+/* ======================================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.page-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-btn:hover {
+    background-color: #ffc107;
+    color: #111;
+    border-color: #ffc107;
+}
+
+.page-btn.disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: #666;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.page-info {
+    font-weight: 600;
+    color: #c0c0c0;
+}
+
+/* ======================================== */
+/* Página de Perfil                         */
+/* ======================================== */
+.profile-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    color: #e0e0e0;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.profile-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #fff;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffc107;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+.profile-favorites-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.profile-favorites-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-favorites-list li {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* ======================================== */
+/* Página Sobre                             */
+/* ======================================== */
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    color: #e0e0e0;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+}
+
+.about-header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 0;
+}
+
+.about-header .highlight {
+    color: #ffc107;
+}
+
+.about-header .subtitle {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    margin-top: 10px;
+}
+
+.about-section {
+    margin-bottom: 30px;
+}
+
+.about-section h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ffc107;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.about-section p {
+    line-height: 1.8;
+    color: #c0c0c0;
+}
+
+.tech-stack .tech-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tech-item i {
+    font-size: 2.5rem; /* Tamanho do ícone */
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+.tech-item span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e0e0e0;
 }
 
 /* style.css - Adicionar */
-.main-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); }
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+    position: relative;
+}
 .nav-brand { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
 .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-weight: 600; }
 .header-content { text-align: center; padding: 50px 0; }

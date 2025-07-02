@@ -5,23 +5,55 @@
 {% endblock %}
 
 {% block content %}
-    <div class="anime-grid">
-        {% for anime in animes %}
-            <div class="anime-card">
-                <a href="{{ anime.url }}" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ anime.image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
-                </a>
-                <div class="anime-info">
-                    <h2>{{ anime.title }}</h2>
-                    <p class="release-date"><strong>Lançamento:</strong> {{ anime.release_date }}</p>
-                    <p class="synopsis">{{ anime.synopsis }}</p>
-                    {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('add_favorite', anime_id=anime.id) }}" class="btn-favorite">⭐ Favoritar</a>
-                    {% endif %}
-                </div>
-            </div>
-        {% else %}
-            <p>Nenhum anime encontrado ou erro ao carregar os dados.</p>
-        {% endfor %}
+
+    {% if query %}
+    <div class="search-header">
+        <h2>Resultados da busca por: <span>"{{ query }}"</span></h2>
     </div>
+    {% endif %}
+
+    {% if animes %}
+
+        <div class="anime-grid">
+            {% for anime in animes %}
+                <div class="anime-card">
+                    <a href="{{ url_for('anime_detail', anime_id=anime.id) }}">
+                        <img src="{{ anime.image_url }}" alt="Pôster de {{ anime.title }}" loading="lazy">
+                    </a>
+                    <div class="anime-info">
+                        <h2>{{ anime.title }}</h2>
+                        <p class="release-date"><strong>Ano:</strong> {{ anime.release_date }}</p>
+                        <p class="synopsis">{{ anime.synopsis }}</p>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('add_favorite', anime_id=anime.id) }}" class="btn-favorite">⭐ Favoritar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if pagination and pagination.last_visible_page > 1 %}
+        <div class="pagination">
+            {% if pagination.current_page > 1 %}
+                <a href="{{ url_for('index', page=pagination.current_page - 1) }}" class="page-btn">&laquo; Anterior</a>
+            {% else %}
+                <span class="page-btn disabled">&laquo; Anterior</span>
+            {% endif %}
+
+            <span class="page-info">
+                Página {{ pagination.current_page }} de {{ pagination.last_visible_page }}
+            </span>
+
+            {% if pagination.has_next_page %}
+                <a href="{{ url_for('index', page=pagination.current_page + 1) }}" class="page-btn">Próxima &raquo;</a>
+            {% else %}
+                <span class="page-btn disabled">Próxima &raquo;</span>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    {% else %}
+        <p class="no-results">Nenhum anime encontrado.</p>
+    {% endif %}
+
 {% endblock %}

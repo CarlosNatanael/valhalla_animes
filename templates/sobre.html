@@ -1,24 +1,54 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Sobre Nós
+    Sobre o Valhalla Animes
 {% endblock %}
 
 {% block content %}
-    <div class="about-page">
-        <h2>Sobre este Projeto</h2>
-        <p>Este site foi criado como um projeto de demonstração usando Python, o micro-framework Flask e a Jikan API.</p>
-        <p>O objetivo é exibir os próximos lançamentos de animes de forma clara e organizada, praticando conceitos de desenvolvimento web como consumo de APIs, renderização de templates e herança de templates.</p>
+<div class="about-container">
+    <div class="about-header">
+        <h1>Sobre o Projeto <span class="highlight">Valhalla Animes</span></h1>
+        <p class="subtitle">Uma jornada de aprendizado com Python, Flask e paixão por animes.</p>
     </div>
 
-    <style>
-        .about-page {
-            max-width: 800px;
-            margin: 40px auto;
-            background-color: #16213e;
-            padding: 30px;
-            border-radius: 8px;
-            line-height: 1.8;
-        }
-    </style>
+    <div class="about-content">
+        <div class="about-section">
+            <h2>Nossa Missão</h2>
+            <p>
+                O Valhalla Animes nasceu como um projeto de demonstração com o objetivo de criar uma plataforma web moderna e funcional. A missão foi praticar e aprofundar conhecimentos em desenvolvimento web, desde o backend com Python e Flask até a criação de uma interface de usuário responsiva e atraente.
+            </p>
+        </div>
+
+        <div class="about-section tech-stack">
+            <h2>Tecnologias Utilizadas</h2>
+            <p>Este site foi construído com um conjunto de ferramentas modernas e poderosas:</p>
+            <div class="tech-icons">
+                <div class="tech-item" title="Python">
+                    <i class="fab fa-python"></i>
+                    <span>Python</span>
+                </div>
+                <div class="tech-item" title="Flask">
+                    <i class="fas fa-flask"></i>
+                    <span>Flask</span>
+                </div>
+                <div class="tech-item" title="SQLAlchemy">
+                    <i class="fas fa-database"></i>
+                    <span>SQLAlchemy</span>
+                </div>
+                <div class="tech-item" title="HTML5">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="tech-item" title="CSS3">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="tech-item" title="JavaScript">
+                    <i class="fab fa-js-square"></i>
+                    <span>JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

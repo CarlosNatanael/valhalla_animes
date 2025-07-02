@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ anime.title }}{% endblock %}
+
+{% block content %}
+<div class="anime-detail-container">
+    <div class="left-column">
+        <img src="{{ anime.images.jpg.large_image_url }}" alt="Pôster de {{ anime.title }}">
+        <div class="info-box">
+            <div class="info-item">
+                <span>Score</span>
+                <strong>⭐ {{ anime.score if anime.score else 'N/A' }}</strong>
+            </div>
+            <div class="info-item">
+                <span>Status</span>
+                <strong>{{ anime.status }}</strong>
+            </div>
+            <div class="info-item">
+                <span>Ano</span>
+                <strong>{{ anime.year if anime.year else 'N/A' }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <h1>{{ anime.title }}</h1>
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <span class="genre-tag">{{ genre.name }}</span>
+            {% endfor %}
+        </div>
+        
+        <h2>Sinopse</h2>
+        <p class="synopsis-full">{{ anime.synopsis | replace('[Written by MAL Rewrite]', '') }}</p>
+
+        {% if anime.trailer.embed_url %}
+            <h2>Trailer</h2>
+            <div class="trailer-container">
+                <iframe 
+                    src="{{ anime.trailer.embed_url }}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
