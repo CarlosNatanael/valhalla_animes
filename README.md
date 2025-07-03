@@ -119,7 +119,7 @@ Ou:
 python app.py
 ```
 
-Acesse em: [Valhalla Animes](https://vn75t0lq-5051.brs.devtunnels.ms/)
+Acesse em: [Valhalla Animes](https://valhalla-animes.onrender.com)
 
 ---
 
